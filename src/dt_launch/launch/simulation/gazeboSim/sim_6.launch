@@ -1,0 +1,19 @@
+<launch>
+<include file="$(find dt_launch)/launch/simulation/simUAV1.launch">
+</include>
+
+<include file="$(find dt_launch)/launch/simulation/simUAV2.launch">
+</include>
+
+<include file="$(find dt_launch)/launch/simulation/simUAV3.launch">
+</include>
+
+<include file="$(find dt_launch)/launch/simulation/simUAV4.launch">
+</include>
+
+<include file="$(find dt_launch)/launch/simulation/simUAV5.launch">
+</include>
+
+<include file="$(find dt_launch)/launch/simulation/simUAV6.launch">
+</include>
+</launch>

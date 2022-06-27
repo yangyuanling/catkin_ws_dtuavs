@@ -1,0 +1,13 @@
+<launch>
+<node pkg="uwb_wrapper" type="uwb_wrapper_node" name="uwb_wrapper_node" output="screen">
+    <param name="UwbInforMsgTopic" value="/uwb0/information"/>
+    <param name="DistanceMsgTopic" value="/mavros/distance_sensor/hrlv_ez4_pub"/>
+    <param name="UwbPosMsgTopic" value ="/mavros/vision_pose/pose"/>
+    <param name="LocalPosMsgTopic" value="/mavros/local_position/pose"/>
+    <param name="UwbDistanceTopic" value="/uwb0/distance"/>
+    <param name="poseHz" value="20"/>
+    <param name="error" value="0.3"/>
+    <param name="UwbInstallHeigh" value="3.0"/>
+    <param name="LocalPositionModel" value="true"/>
+</node>
+</launch>

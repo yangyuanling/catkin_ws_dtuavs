@@ -1,0 +1,12 @@
+<launch>
+<include file="$(find dt_launch)/launch/UAV1.launch"/>
+<include file="$(find dt_launch)/launch/UAV2.launch"/>
+<include file="$(find dt_launch)/launch/UAV3.launch"/>
+<include file="$(find dt_launch)/launch/UAV4.launch"/>
+<include file="$(find dt_launch)/launch/UAV5.launch"/>
+<include file="$(find dt_launch)/launch/UAV6.launch"/>
+<include file="$(find dt_launch)/launch/UAV7.launch"/>
+<include file="$(find dt_launch)/launch/UAV8.launch"/>
+<include file="$(find dt_launch)/launch/UAV9.launch"/>
+<include file="$(find dt_launch)/launch/UAV10.launch"/>
+</launch>

@@ -1,0 +1,36 @@
+<launch>
+<node name="dt_message_wrapper_node" pkg="dt_message_wrapper" type="dt_message_wrapper_node" output="screen">
+                                         <!--packing-->
+      <param name="SourceID" value="1"/>
+      <param name="TargetID" value="201"/> <!--(-1): publish to everyone-->
+      <param name="DtObjectID" value="201"/>
+      <param name="CloudMessagePubTopic" value="/R_UAV_0/Message_to_Cloud"/>
+      <param name="GlobalPositionMessageSubTopic" value="/mavros/global_position/global"/>
+      <param name="LocalPositionMessageSubTopic" value="/mavros/local_position/pose"/>
+      <param name="LocalVelocityMessageSubTopic" value="/mavros/local_position/velocity"/>
+      <param name="UavStateMessageSubTopic" value="/mavros/state"/>
+      <param name="BatteryMessageSubTopic" value="/mavros/battery"/>
+      <param name="MessagePubFrequency" value="10"/>
+
+                                         <!--unpacking-->
+      <param name="CloudMessageSubTopic" value="/R_UAV_0/Message_from_Cloud"/>
+      <param name="TargetVelocityMessagePubTopic" value="/R_UAV_0/Target/Velocity"/>
+      <param name="TargetPositionMessagePubTopic" value="/R_UAV_0/Target/Position"/>
+      <param name="ArmCommandMessagePubTopic" value="/R_UAV_0/Set/Arm"/>
+      <param name="TargetFModeMessagePubTopic" value="/R_UAV_0/Set/FMode"/>
+      <param name="VRControlMessagePubTopic" value="/R_UAV_0/VR/Control"/>
+      <param name="ComputerCmdMessagePubTopic" value="/R_UAV_0/Computer/Cmd"/>
+      <param name="ApplyCameraMessagePubTopic" value="/R_UAV_0/Apply/Camera"/>
+      <param name="OtherUavStateMsgPubTopic" value="/OtherUavs/State"/>
+      <param name="NetworkStateMsgPubTopic" value="/Network/State"/>
+      <param name="UavNum" value="10"/>  <!--The number of UAV-->
+      <param name="IsAllUpdate" value="true"/> <!--Is update message if only one UAV information can be obtained-->
+      <param name="HeartMessagePubHz" value="0.1"/>
+      <param name="TargetObjPosMsgPubTopic" value="/TargetObject/Position"/>
+
+      <param name="StartPositionX" value="1"/>
+      <param name="StartPositionY" value="1"/>
+      <param name="StartPositionZ" value="0"/>
+
+</node>
+</launch>

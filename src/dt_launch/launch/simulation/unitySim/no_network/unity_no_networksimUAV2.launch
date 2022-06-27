@@ -1,0 +1,30 @@
+<launch>
+    <arg name="product_key_init" default="h7zmGKM1Pha"/>
+    <arg name="device_name_init" default="UAV2"/>
+    <arg name="device_secret_init" default="7aa9a37c9006ac863e7ad5a1f378c016"/>
+    <arg name="device_name_rostopic_init" default="UAV2"/>
+    <arg name="SourceID" default="1"/>
+
+<node name="$(arg device_name_rostopic_init)_global_network_node" pkg="dt_global_network_client" type="dt_global_network_client_node" output="screen">
+    <param name="product_key" value="$(arg product_key_init)" />
+    <param name="device_name" value="$(arg device_name_init)" />
+    <param name="device_secret" value="$(arg device_secret_init)"/>
+    <param name="iot_pub_topic" value="/$(arg product_key_init)/$(arg device_name_init)/user/$(arg device_name_init)_Pub"/>
+    <param name="iot_sub_topic" value="/$(arg product_key_init)/$(arg device_name_init)/user/$(arg device_name_init)_Sub"/>
+    <param name="ros_sub_topic" value="/$(arg device_name_rostopic_init)/Message_to_Cloud"/>
+    <param name="ros_pub_topic" value="/$(arg device_name_rostopic_init)/Message_from_Cloud"/>
+    <param name="ros_iot_state_pub_topic" value="/$(arg device_name_rostopic_init)/iot_state"/>
+    <param name="object_name" value="$(arg device_name_init)"/>
+    <param name="is_close_infor" value="true"/>
+</node>
+
+<node name="$(arg device_name_rostopic_init)_unity_velocity_control_wrapper" pkg="px4_simulation_wrapper" type="unity_velocity_control_wrapper" output="screen">
+      <param name="px4_ref_vel_msg_pub_topic" value="/$(arg device_name_rostopic_init)/mavros/setpoint_velocity/cmd_vel_unstamped"/>
+      <param name="tgt_vel_msg_sub_topic" value="/$(arg device_name_rostopic_init)/Target/Velocity"/>                      <!--The Target Velocity from Other Controller-->
+      <param name="cmd_reset_time" value="2.0"/> <!--1.0s-->
+      <param name="run_frequen_hz" value="30.0"/>
+      <param name="network_data_case_pub_topic" value="/$(arg device_name_rostopic_init)/network/data/get"/>
+</node>
+<include file="$(find multi_collab)/launch/multi_collab_uav2.launch">
+</include>
+</launch>

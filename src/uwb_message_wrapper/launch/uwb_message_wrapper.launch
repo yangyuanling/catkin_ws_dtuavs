@@ -1,0 +1,19 @@
+<launch>
+<node pkg="uwb_message_wrapper" type="uwb_message_wrapper_node" name="uwb_message_wrapper_node" output="screen">
+    <param name="UwbMsgSubTopic" value="/uwb0/msg_from_other"/>
+    <param name="UwbMsgPubTopic" value="/uwb0/msg_to_other"/>
+    <param name="UavLocalPosSubTopic" value="/uav1/mavros/local_position/pose"/>
+    <param name="UavVelSubTopic" value="/uav1/mavros/local_position/velocity"/>
+    <param name="UavNum" value="6"/>
+    <param name="UavId" value="1"/>
+    <param name="IsCar" value="true"/>
+    <param name="MsgToOtherHz" value="30"/>
+    <param name="UavsPosVelPubHz" value="30"/>
+    <param name="UavsPosVelPubTopic" value="/uav1/other_uav/state"/>
+    <param name="NetworkStatePubTopic" value="/uav1/network/state"/>
+    <param name="StartPositionX" value="0"/>
+    <param name="StartPositionY" value="0"/>
+    <param name="StartPositionZ" value="0"/>
+    <param name="TargetObjectPosPubTopic" value="/target_object/pose"/>
+</node>
+</launch>

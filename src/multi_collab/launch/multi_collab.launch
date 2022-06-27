@@ -1,0 +1,58 @@
+<launch>
+    <arg name="ID" 	  default="0"/>
+
+    <arg name="r_com" 	  default="100.0"/> <!-- 最大通讯距离，也是对齐作用的最大范围 -->
+    <arg name="r_agent"   default="1.5"/>	<!-- 个体最大半径，影响自适应任务方向 -->
+    <arg name="v_max" 	  default="1.2"/>	<!-- 最大水平速度 -->
+    <arg name="v_z_max"   default="1.0"/>	<!-- 最大高度速度 -->
+    <arg name="height" 	  default="2.0"/>	<!-- 定高飞行 -->
+    <arg name="p_h" 	  default="0.2"/>	<!-- 高度p控制 -->
+    <arg name="y_finish"  default="25.0"/>	<!-- 任务区停止位置 -->
+    <arg name="dy_finish" default="2.5"/>	<!-- 任务区停止位置增量 -->
+
+    <arg name="flag_align" default="0"/>	<!-- 0为速度平均，1为速度差修正 -->
+    <arg name="v_flock"    default="1.0"/>	<!-- 维持速度大小 -->
+    <arg name="p_diff" 	   default="1.0"/>	<!-- 速度差修正项系数，flag_align = 1起作用 -->
+
+    <arg name="r_rep" 	   default="5.0"/>	<!-- 排斥半径 -->
+    <arg name="p_rep" 	   default="1.0"/>	<!-- 排斥线性增益 -->
+
+    <arg name="flag_att"   default="0"/>	<!-- 0为k近邻吸引 1为固定拓扑吸引 -->
+    <arg name="r_att1" 	   default="$(eval 2 + arg('r_rep'))"/>		<!-- 吸引范围下限 -->
+    <arg name="r_att2"     default="$(eval 20 + arg('r_rep'))"/>	<!-- 吸引范围上限 -->
+    <arg name="p_att"      default="1.0"/>	<!-- 吸引线性增益 -->
+    <arg name="k" 		   default="2"/>	<!-- k近邻吸引的邻居数量 -->
+
+    <arg name="C_wall" 	   default="100.0"/>	<!-- 线性增益 -->
+    <arg name="r_wall"     default="3.0"/>	<!-- 避障距离 -->
+
+    <arg name="r_adjust"   default="12.0"/>	<!-- 自适应的感知障碍距离 -->
+    <arg name="informed_direction" default="1.5708"/>	<!-- 任务方向，与x轴的夹角，rad -->
+    <arg name="informed_0" default="1"/>	<!-- 0号飞机身份，1为信息个体 -->
+    <arg name="informed_1" default="0"/>	<!-- 1号飞机身份 -->
+    <arg name="informed_2" default="0"/>	<!-- 2号飞机身份 -->
+    <arg name="informed_3" default="0"/>	<!-- 3号飞机身份 -->
+    <arg name="informed_4" default="1"/>	<!-- 4号飞机身份 -->
+    <arg name="informed_5" default="0"/>	<!-- 5号飞机身份 -->
+<!-- 围捕 会用到上面的v_max v_z_max height p_h-->
+
+    <arg name="delta"                 default="5"/>	<!-- #0 -->
+    <arg name="ind_scale"             default="50"/>	<!-- #1 -->
+    <arg name="repulse_scale"         default="2.0"/>	<!-- #2 -->
+    <arg name="obs_influence_range"   default="10.0"/>	<!-- #3 -->
+    <arg name="rec_left_down_x"   default="-39.9914821124361"/>	<!-- #4 -->
+    <arg name="rec_left_down_y"   default="3.83304940374788"/>	<!-- #5 -->
+    <arg name="rec_right_up_x"   default="33.603066439523"/>	<!-- #6 -->
+    <arg name="rec_right_up_y"   default="50.3407155025554"/>	<!-- #7 -->
+
+
+<node name="multi_collab_node" pkg="multi_collab" type="multi_collab_node" output="screen" args="$(arg ID)
+		$(arg r_com) $(arg r_agent) $(arg v_max) $(arg v_z_max) $(arg height) $(arg p_h) $(arg y_finish) $(arg dy_finish) 
+		$(arg flag_align) $(arg v_flock) $(arg p_diff) 
+		$(arg r_rep) $(arg p_rep) $(arg flag_att) $(arg r_att1) $(arg r_att2) $(arg p_att) $(arg k) $(arg C_wall) $(arg r_wall) 
+		$(arg r_adjust) $(arg informed_direction) 
+		$(arg informed_0) $(arg informed_1) $(arg informed_2) $(arg informed_3) $(arg informed_4) $(arg informed_5)
+ $(arg delta) $(arg ind_scale) $(arg repulse_scale) $(arg obs_influence_range) 
+        $(arg rec_left_down_x) $(arg rec_left_down_y) $(arg rec_right_up_x) $(arg rec_right_up_y)"/>
+
+</launch>

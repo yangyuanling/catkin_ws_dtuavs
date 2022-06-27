@@ -1,0 +1,45 @@
+<launch>
+<arg name="product_key_init" default="h7zmBet0aJF"/>
+<arg name="device_name_init" default="Car1"/>
+<arg name="device_secret_init" default="d5a77a7e53dd0061d5f9e4c9849215a6"/>
+<arg name="device_name_rostopic_init" default="Car1"/>
+<arg name="SourceID" default="11"/>
+<node name="$(arg device_name_rostopic_init)_global_network_node" pkg="dt_global_network_client" type="dt_global_network_client_node" output="screen">
+<param name="product_key" value="$(arg product_key_init)" />
+<param name="device_name" value="$(arg device_name_init)" />
+<param name="device_secret" value="$(arg device_secret_init)"/>
+<param name="iot_pub_topic" value="/$(arg product_key_init)/$(arg device_name_init)/user/$(arg device_name_init)_Pub"/>
+<param name="iot_sub_topic" value="/$(arg product_key_init)/$(arg device_name_init)/user/$(arg device_name_init)_Sub"/>
+<param name="ros_sub_topic" value="/$(arg device_name_rostopic_init)/Message_to_Cloud"/>
+<param name="ros_pub_topic" value="/$(arg device_name_rostopic_init)/Message_from_Cloud"/>
+<param name="ros_iot_state_pub_topic" value="/$(arg device_name_rostopic_init)/iot_state"/>
+<param name="object_name" value="$(arg device_name_init)"/>
+<param name="is_close_infor" value="true"/>
+</node>
+<node name="dt_target_object_node" pkg="dt_target_object" type="dt_target_object_node" output="screen">
+                                         <!--packing-->
+      <param name="SourceID" value="11"/>
+      <param name="TargetID" value="-1"/> <!--(-1): publish to everyone-->
+      <param name="DtObjectID" value="-1"/>
+      <param name="CloudMessagePubTopic" value="/$(arg device_name_rostopic_init)/Message_to_Cloud"/>
+      <param name="LocalPositionMessageSubTopic" value="/$(arg device_name_rostopic_init)/mavros/local_position/pose"/>
+      <param name="MessagePubFrequency" value="5"/>
+
+                                         <!--unpacking-->
+
+      <!--unpacking-->
+      <param name="UavsPosVelSubTopic" value="/other_uavs/state"/>
+      <param name="ObjectNum" value="6"/>
+      <param name="IsShowTargetObje" value="false"/><!--ObjectNum should set 7-->
+      <param name="PlotPointNum" value="20"/>
+      <param name="PlotHz" value="10"/>
+
+      <param name="CloudMessageSubTopic" value="/$(arg device_name_rostopic_init)/Message_from_Cloud"/>
+      <param name="TargetVelocityMessagePubTopic" value="/$(arg device_name_rostopic_init)/Target/Velocity"/>
+
+      <param name="StartPositionX" value="0"/>
+      <param name="StartPositionY" value="0"/>
+      <param name="StartPositionZ" value="0"/>
+
+</node>
+</launch>

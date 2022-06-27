@@ -1,0 +1,23 @@
+在ubuntu中编译的时候，有时候会遇到cmake版本过低的问题
+
+CMake 3.16 or higher is required
+1
+在这里选一个版本，复制.sh的链接，然后：
+
+wget https://cmake.org/files/v3.16/cmake-3.16.3-Linux-x86_64.sh
+1
+然后chmod：
+
+chmod 777 cmake-3.16.3-Linux-x86_64.sh
+1
+然后用sh文件升级即可，中间两个选择，第一个选y，第二个似乎y或n都可以。
+
+bash ./cmake-3.16.3-Linux-x86_64.sh --skip-licence --prefix=/usr
+1
+最后查看version：
+
+cmake --version
+cmake version 3.16.3
+————————————————
+版权声明：本文为CSDN博主「Daisy Wang 001」的原创文章，遵循CC 4.0 BY-SA版权协议，转载请附上原文出处链接及本声明。
+原文链接：https://blog.csdn.net/m0_47448477/article/details/125170142

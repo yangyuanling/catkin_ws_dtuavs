@@ -1,0 +1,19 @@
+<launch>
+<node name="px4_velocity_control_wrapper" pkg="px4_simulation_wrapper" type="px4_velocity_control_wrapper" output="screen">
+      <param name="px4_ref_vel_msg_pub_topic" value="/mavros/setpoint_velocity/cmd_vel_unstamped"/>        <!--The Target Velocity Message to PX4-->
+      <param name="tgt_vel_msg_sub_topic" value="/other_controller/target_velocity"/>                      <!--The Target Velocity from Other Controller-->
+      <param name="px4_state_msg_sub_topic" value="/mavros/state"/>                                        <!--The State of PX4-->
+      <param name="px4_rc_msg_sub_topic" value="/mavros/rc/in"/>                                           <!--The RC Information from PX4-->
+      <param name="px4_arming_client_topic" value="/mavros/cmd/arming"/>                                   <!--The Arm to PX4-->
+      <param name="px4_set_mode_client_topic" value="/mavros/set_mode"/>                                   <!--The mode setting to PX4-->
+      <param name="run_frequen_hz" value="20.0"/>                                                          <!--The Frequen of Target Velocity Message To PX4-->
+      <param name="rc_start_ch" value="5"/>                                                                <!--The RC Channel of Start Vehicle-->
+      <param name="rc_land_ch" value="6"/>                                                                 <!--The RC Channel of Land Vehicle-->
+      <param name="rc_save_image_ch" value="6"/>
+      <param name="save_image_rquest_topic" value="/save/image"/>
+      <param name="cmd_reset_time" value="1.0"/> <!--1.0s-->
+      <param name="local_position_pub_topic" value="/local_position/pose"/>
+      <param name="px4_local_position_sub_topic" value="/mavros/local_position/pose"/>
+      <param name="network_data_case_pub_topic" value="/network/data/get"/>
+  </node>
+</launch>

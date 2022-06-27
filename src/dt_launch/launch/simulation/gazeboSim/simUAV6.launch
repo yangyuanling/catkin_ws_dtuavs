@@ -1,0 +1,79 @@
+<launch>
+    <arg name="product_key_init" default="h7zmGKM1Pha"/>
+    <arg name="device_name_init" default="UAV6"/>
+    <arg name="device_secret_init" default="72062a6bb7eb22fc303e166123399029"/>
+    <arg name="device_name_rostopic_init" default="UAV6"/>
+    <arg name="SourceID" default="6"/>
+
+<node name="$(arg device_name_rostopic_init)_global_network_node" pkg="dt_global_network_client" type="dt_global_network_client_node" output="screen">
+    <param name="product_key" value="$(arg product_key_init)" />
+    <param name="device_name" value="$(arg device_name_init)" />
+    <param name="device_secret" value="$(arg device_secret_init)"/>
+    <param name="iot_pub_topic" value="/$(arg product_key_init)/$(arg device_name_init)/user/$(arg device_name_init)_Pub"/>
+    <param name="iot_sub_topic" value="/$(arg product_key_init)/$(arg device_name_init)/user/$(arg device_name_init)_Sub"/>
+    <param name="ros_sub_topic" value="/$(arg device_name_rostopic_init)/Message_to_Cloud"/>
+    <param name="ros_pub_topic" value="/$(arg device_name_rostopic_init)/Message_from_Cloud"/>
+    <param name="ros_iot_state_pub_topic" value="/$(arg device_name_rostopic_init)/iot_state"/>
+    <param name="object_name" value="$(arg device_name_init)"/>
+    <param name="is_close_infor" value="true"/>
+</node>
+
+<node name="$(arg device_name_rostopic_init)_dt_message_wrapper_node" pkg="dt_message_wrapper" type="dt_message_wrapper_node" output="screen">
+                     <!--packing-->
+<param name="SourceID" value="$(arg SourceID)"/>
+<param name="TargetID" value="-1"/> <!--(-1): publish to everyone-->
+<param name="DtObjectID" value="-1"/>
+<param name="CloudMessagePubTopic" value="/$(arg device_name_rostopic_init)/Message_to_Cloud"/>
+<param name="GlobalPositionMessageSubTopic" value="/$(arg device_name_rostopic_init)/mavros/global_position/global"/>
+<param name="LocalPositionMessageSubTopic" value="/$(arg device_name_rostopic_init)/mavros/local_position/pose"/>
+<param name="LocalVelocityMessageSubTopic" value="/$(arg device_name_rostopic_init)/mavros/local_position/velocity"/>
+<param name="UavStateMessageSubTopic" value="/$(arg device_name_rostopic_init)/mavros/state"/>
+<param name="BatteryMessageSubTopic" value="/$(arg device_name_rostopic_init)/mavros/battery"/>
+<param name="MessagePubFrequency" value="30"/>
+
+                     <!--unpacking-->
+<param name="CloudMessageSubTopic" value="/$(arg device_name_rostopic_init)/Message_from_Cloud"/>
+<param name="TargetVelocityMessagePubTopic" value="/$(arg device_name_rostopic_init)/Target/Velocity"/>
+<param name="TargetPositionMessagePubTopic" value="/$(arg device_name_rostopic_init)/Target/Position"/>
+<param name="ArmCommandMessagePubTopic" value="/$(arg device_name_rostopic_init)/Set/Arm"/>
+<param name="TargetFModeMessagePubTopic" value="/$(arg device_name_rostopic_init)/Set/FMode"/>
+<param name="VRControlMessagePubTopic" value="/$(arg device_name_rostopic_init)/VR/Control"/>
+<param name="ComputerCmdMessagePubTopic" value="/$(arg device_name_rostopic_init)/Computer/Cmd"/>
+<param name="ApplyCameraMessagePubTopic" value="/$(arg device_name_rostopic_init)/Apply/Camera"/>
+<param name="OtherUavStateMsgPubTopic" value="/$(arg device_name_rostopic_init)/OtherUavs/State"/>        <!--All UAVs state-->
+<param name="NetworkStateMsgPubTopic" value="/$(arg device_name_rostopic_init)/Network/State"/>
+<param name="UavNum" value="6"/>                                                                        <!--The number of UAV-->
+<param name="IsAllUpdate" value="true"/>                                                                <!--Is update message if only one UAV information can be obtained-->
+
+<param name="HeartMessagePubHz" value="0.1"/>
+<param name="TargetObjPosMsgPubTopic" value="/$(arg device_name_rostopic_init)/TargetObject/Position"/>
+<param name="StartPositionX" value="12.5"/>
+<param name="StartPositionY" value="-60"/>
+<param name="StartPositionZ" value="0"/>
+</node>
+
+<node name="$(arg device_name_rostopic_init)_rc_controller" pkg="rc_control" type="rc_control" output="screen">
+<param name="start_offboard_pub_topic" value="/$(arg device_name_rostopic_init)/mavros/rc/in"/>
+<param name="target_object_position_pub_topic" value = "/ref_uav/pose"/>
+<param name="start_offboard_ch" value="5"/>
+<param name="land_ch" value="6"/>
+</node>
+<node name="$(arg device_name_rostopic_init)_px4_velocity_control_wrapper" pkg="px4_simulation_wrapper" type="px4_velocity_control_wrapper" output="screen">
+<param name="px4_ref_vel_msg_pub_topic" value="/$(arg device_name_rostopic_init)/mavros/setpoint_velocity/cmd_vel_unstamped"/>        <!--The Target Velocity Message to PX4-->
+<param name="tgt_vel_msg_sub_topic" value="/$(arg device_name_rostopic_init)/Target/Velocity"/>                      <!--The Target Velocity from Other Controller-->
+<param name="px4_state_msg_sub_topic" value="/$(arg device_name_rostopic_init)/mavros/state"/>                                        <!--The State of PX4-->
+<param name="px4_rc_msg_sub_topic" value="/$(arg device_name_rostopic_init)/mavros/rc/in"/>                                           <!--The RC Information from PX4-->
+<param name="px4_arming_client_topic" value="/$(arg device_name_rostopic_init)/mavros/cmd/arming"/>                                   <!--The Arm to PX4-->
+<param name="px4_set_mode_client_topic" value="/$(arg device_name_rostopic_init)/mavros/set_mode"/>                                   <!--The mode setting to PX4-->
+<param name="run_frequen_hz" value="20.0"/>                                                          <!--The Frequen of Target Velocity Message To PX4-->
+<param name="rc_start_ch" value="5"/>                                                                <!--The RC Channel of Start Vehicle-->
+<param name="rc_save_image_ch" value="6"/>
+<param name="cmd_reset_time" value="1.0"/> <!--1.0s-->
+<param name="save_image_rquest_topic" value="/$(arg device_name_rostopic_init)/Save/Image"/>
+<param name="local_position_pub_topic" value="/$(arg device_name_rostopic_init)/local_position/pose"/>
+<param name="px4_local_position_sub_topic" value="/$(arg device_name_rostopic_init)/mavros/local_position/pose"/>
+<param name="network_data_case_pub_topic" value="/$(arg device_name_rostopic_init)/network/data/get"/>
+</node>
+<include file="$(find multi_collab)/launch/multi_collab_uav6.launch">
+</include>
+</launch>

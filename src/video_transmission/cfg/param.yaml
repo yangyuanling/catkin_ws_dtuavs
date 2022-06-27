@@ -1,0 +1,13 @@
+image_dev: /dev/video0
+save_path: /home/yyl/datasets/camera
+save: false
+visualization: true
+hz: 20.0
+camera_topic_name: /camera/rgb/data
+camera_compressed_name: /camera/rgb/data/compressed
+msg_to_cloud_name: /R_UAV_1/Message_to_Cloud
+camera_to_cloud_hz: 1
+cloud_msg_source_id: 1
+cloud_msg_target_id: 101
+apply_cam_sub_name: /R_UAV_1/Apply/Camera
+save_cam_sub_name: /R_UAV_1/Save/Image

@@ -1,0 +1,57 @@
+#udp_server parameters
+#/************************lsk 1481054609@qq.com********************************/
+DEST_PORT_SERVER: 4455
+#uavs_pos_vel_topic: "/UAV3/OtherUavs/State"
+uavs_pos_vel_topic: "/other_uavs/state"
+uav_target_topic: "/uav/target/pose_vel"
+UAVS_NUM: 6
+wait_updata_num_thr: 1
+
+#udp_client parameters
+UAV_ID: 3
+DEST_PORT_CLIENT: 4466
+main_loop_duration_: 0.033
+source_of_control_: 0                                            #0 denotes muti_collab, which send the state of own uav; 1 denotes uav controlled by the Game joystick
+control_mode: 1                                                        # 0 denotes  Position control and 1 denotes Velocity control.
+uav_game_joy_topic: "/uav/game_joy/vel"
+
+DSET_IP_ADDRESS:  "192.168.1.204"   #when source_of_control_ is 1,  the udp client only send the data to this IP add
+DSET_IP_ADDRESS1: "192.168.1.101"
+DSET_IP_ADDRESS2: "192.168.1.102"
+DSET_IP_ADDRESS3: "192.168.1.103"
+DSET_IP_ADDRESS4: "192.168.1.204"
+DSET_IP_ADDRESS5: "192.168.1.105"
+DSET_IP_ADDRESS6: "192.168.1.106"
+DSET_IP_ADDRESS7: "192.168.1.107"
+DSET_IP_ADDRESS8: "192.168.1.108"
+DSET_IP_ADDRESS9: "192.168.1.109"
+DSET_IP_ADDRESS10: "192.168.1.110"
+DSET_IP_ADDRESS12: "192.168.1.111"
+
+
+
+tgt_vel_msg_pub_topic: "/UAV3/Target/Velocity"
+tgt_pose_msg_pub_topic: "/UAV3/Target/Position"
+tgt_object_pos_sub_topic: "/Car1/mavros/local_position/pose"
+#tgt_object_pos_sub_topic: "/UAV3/TargetObject/Position"
+network_data_case_pub_topic: "/UAV3/network/data/get"
+
+# param: value
+waypoints:
+# ENU frame: x, y z, yaw
+# numbers must in x.x format(i.e: 5.0)
+#uav 5*5m
+- [0.0,0.0,1.5, 0.0]       
+- [0.0,-2.5,1.5, 0.0]
+- [2.0,-2.5,1.5, 0.0]      
+- [3.0,-2.5,1.5, 0.0]      
+- [3.0,2.5,1.5, 0.0]       
+- [3.0,2.5,2.0, 0.0]       
+- [0.0,0.0,2.0, 0.0]       
+- [0.0,0.0,-100.0, 0.0]
+
+
+
+
+
+

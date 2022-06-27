@@ -1,0 +1,49 @@
+<launch>
+<arg name="device_name_rostopic_init" default="UAV4"/>
+<arg name="SourceID" default="4"/>
+<node pkg="nlink_parser" type="linktrack" name="$(arg device_name_rostopic_init)_uwb" output="screen">
+    <param name="port_name" value="/dev/ttyUSB0" />
+    <param name="baud_rate" value="921600" />
+    <param name="SendDataMsgTopic" value="/$(arg device_name_rostopic_init)/msg_to_other"/>
+    <param name="UwbInforMsgTopic" value="/$(arg device_name_rostopic_init)/information"/>
+    <param name="RecvDataMsgTopic" value="/$(arg device_name_rostopic_init)/msg_from_other"/>
+</node>
+
+<node pkg="uwb_message_wrapper" type="uwb_message_wrapper_node" name="$(arg device_name_rostopic_init)_uwb_message_wrapper_node" output="screen">
+<param name="UwbMsgSubTopic" value="/$(arg device_name_rostopic_init)/msg_from_other"/>
+<param name="UwbMsgPubTopic" value="/$(arg device_name_rostopic_init)/msg_to_other"/>
+<param name="UavLocalPosSubTopic" value="/$(arg device_name_rostopic_init)/mavros/local_position/pose"/>
+<param name="UavVelSubTopic" value="/mavros/local_position/velocity"/>
+<param name="UavNum" value="6"/>
+<param name="UavId" value="4"/>
+<param name="MsgToOtherHz" value="30"/>
+<param name="UavsPosVelPubHz" value="30"/>
+<param name="UavsPosVelPubTopic" value="/$(arg device_name_rostopic_init)/OtherUavs/State"/>
+<param name="NetworkStatePubTopic" value="/$(arg device_name_rostopic_init)/uwb_network/data/get"/>
+<param name="StartPositionX" value="2.5"/>
+<param name="StartPositionY" value="-60"/>
+<param name="StartPositionZ" value="0"/>
+<param name="TargetObjectPosPubTopic" value="/$(arg device_name_rostopic_init)/TargetObject/Position"/>
+</node>
+<node name="$(arg device_name_rostopic_init)_px4_velocity_control_wrapper" pkg="px4_simulation_wrapper" type="px4_velocity_control_wrapper" output="screen">
+      <param name="px4_ref_vel_msg_pub_topic" value="/mavros/setpoint_velocity/cmd_vel_unstamped"/>        <!--The Target Velocity Message to PX4-->
+      <param name="tgt_vel_msg_sub_topic" value="/$(arg device_name_rostopic_init)/Target/Velocity"/>                      <!--The Target Velocity from Other Controller-->
+      <param name="px4_state_msg_sub_topic" value="/mavros/state"/>                                        <!--The State of PX4-->
+      <param name="px4_rc_msg_sub_topic" value="/mavros/rc/in"/>                                           <!--The RC Information from PX4-->
+      <param name="px4_arming_client_topic" value="/mavros/cmd/arming"/>                                   <!--The Arm to PX4-->
+      <param name="px4_set_mode_client_topic" value="/mavros/set_mode"/>                                   <!--The mode setting to PX4-->
+      <param name="run_frequen_hz" value="20.0"/>                                                          <!--The Frequen of Target Velocity Message To PX4-->
+      <param name="rc_start_ch" value="5"/>                                                                <!--The RC Channel of Start Vehicle-->
+      <param name="rc_save_image_ch" value="6"/>
+      <param name="cmd_reset_time" value="1.0"/> <!--1.0s-->
+      <param name="save_image_rquest_topic" value="/UAV4/Save/Image"/>
+      <param name="local_position_pub_topic" value="/$(arg device_name_rostopic_init)/local_position/pose"/>
+      <param name="px4_local_position_sub_topic" value="/mavros/local_position/pose"/>
+      <param name="network_data_case_pub_topic" value="/$(arg device_name_rostopic_init)/network/data/get"/>
+</node>
+<include file="$(find multi_collab)/launch/multi_collab_uav4.launch">
+</include>
+<!--
+<include file="$(find video_transmission)/launch/video_uav4.launch"/>
+-->
+</launch>

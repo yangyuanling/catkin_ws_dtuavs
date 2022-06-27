@@ -1,0 +1,7 @@
+<launch>
+    <node pkg = "video_transmission" type="video_transmission" name="video_transmission" output="screen">
+        <rosparam file="$(find video_transmission)/cfg/video_uav1_param.yaml" command="load"/>
+    </node>
+ <!--   <node pkg="rviz" type="rviz" name="rviz"/>-->
+</launch>
+

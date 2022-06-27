@@ -1,0 +1,24 @@
+<launch>
+<node name="dt_target_object_node" pkg="dt_target_object" type="dt_target_object_node" output="screen">
+                                         <!--packing-->
+      <param name="SourceID" value="11"/>
+      <param name="TargetID" value="-1"/> <!--(-1): publish to everyone-->
+      <param name="DtObjectID" value="-1"/>
+      <param name="CloudMessagePubTopic" value="/TargetObj/Message_to_Cloud"/>
+      <param name="LocalPositionMessageSubTopic" value="/TargetObj/mavros/local_position/pose"/>
+      <param name="MessagePubFrequency" value="10"/>
+                                         <!--unpacking-->
+      <param name="UavsPosVelSubTopic" value="/other_uavs/state"/>
+      <param name="ObjectNum" value="7"/>
+      <param name="IsShowTargetObje" value="true"/><!--ObjectNum should set 7-->
+      <param name="PlotPointNum" value="20"/>
+      <param name="PlotHz" value="10"/>
+
+      <param name="CloudMessageSubTopic" value="/TargetObj/Message_from_Cloud"/>
+      <param name="TargetVelocityMessagePubTopic" value="/TargetObj/Target/Velocity"/>
+
+      <param name="StartPositionX" value="1"/>
+      <param name="StartPositionY" value="1"/>
+      <param name="StartPositionZ" value="0"/>
+</node>
+</launch>

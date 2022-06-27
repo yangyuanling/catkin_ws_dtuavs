@@ -1,0 +1,48 @@
+<launch>
+<node name="dt_simulation_wrapper_node" pkg="dt_simulation_wrapper" type="dt_simulation_wrapper_node" output="screen">
+         <!--data from unity to simulation-->
+      <param name="UAV1LocalPositionMessageSubTopic" value="/UAV1/mavros/local_position/pose"/>
+      <param name="UAV1LocalVelocityMessageSubTopic" value="/UAV1/mavros/local_position/velocity"/>
+      <param name="UAV2LocalPositionMessageSubTopic" value="/UAV2/mavros/local_position/pose"/>
+      <param name="UAV2LocalVelocityMessageSubTopic" value="/UAV2/mavros/local_position/velocity"/>
+      <param name="UAV3LocalPositionMessageSubTopic" value="/UAV3/mavros/local_position/pose"/>
+      <param name="UAV3LocalVelocityMessageSubTopic" value="/UAV3/mavros/local_position/velocity"/>
+      <param name="UAV4LocalPositionMessageSubTopic" value="/UAV4/mavros/local_position/pose"/>
+      <param name="UAV4LocalVelocityMessageSubTopic" value="/UAV4/mavros/local_position/velocity"/>
+      <param name="UAV5LocalPositionMessageSubTopic" value="/UAV5/mavros/local_position/pose"/>
+      <param name="UAV5LocalVelocityMessageSubTopic" value="/UAV5/mavros/local_position/velocity"/>
+      <param name="UAV6LocalPositionMessageSubTopic" value="/UAV6/mavros/local_position/pose"/>
+      <param name="UAV6LocalVelocityMessageSubTopic" value="/UAV6/mavros/local_position/velocity"/>
+      <param name="TargetLocalPositionMsgSubTopic" value="/Car1/mavros/local_position/pose"/>
+      <param name="TargetLocalVelocityMsgSubTopic" value="/Car1/mavros/local_position/velocity"/>
+
+      <param name="IsPubTarget" value="true"/>
+      <param name="Mode" value="1"/><!--0:unity virtual simulation  1:physical system online-->
+
+      <param name="UAVsPosVelMessagePubTopic" value="/other_uavs/state"/>
+      <param name="MessagePubFrequency" value="30"/>
+
+      <!--data from physical system to visual-->
+      <param name="CloudMessageSubTopic" value="/TargetObj/Message_from_Cloud"/>
+      <param name="UAV1LocalPositionMessagePubTopic" value="/R_UAV1/mavros/local_position/pose"/>
+      <param name="UAV2LocalPositionMessagePubTopic" value="/R_UAV2/mavros/local_position/pose"/>
+      <param name="UAV3LocalPositionMessagePubTopic" value="/R_UAV3/mavros/local_position/pose"/>
+      <param name="UAV4LocalPositionMessagePubTopic" value="/R_UAV4/mavros/local_position/pose"/>
+      <param name="UAV5LocalPositionMessagePubTopic" value="/R_UAV5/mavros/local_position/pose"/>
+      <param name="UAV6LocalPositionMessagePubTopic" value="/R_UAV6/mavros/local_position/pose"/>
+      <param name="TargetLocalPositionMsgPubTopic" value="/R_Car1/mavros/local_position/pose"/>
+
+
+      <param name="UAV1LocalVelocityMessagePubTopic" value="/R_UAV1/mavros/local_position/velocity"/>
+      <param name="UAV2LocalVelocityMessagePubTopic" value="/R_UAV2/mavros/local_position/velocity"/>
+      <param name="UAV3LocalVelocityMessagePubTopic" value="/R_UAV3/mavros/local_position/velocity"/>
+      <param name="UAV4LocalVelocityMessagePubTopic" value="/R_UAV4/mavros/local_position/velocity"/>
+      <param name="UAV5LocalVelocityMessagePubTopic" value="/R_UAV5/mavros/local_position/velocity"/>
+      <param name="UAV6LocalVelocityMessagePubTopic" value="/R_UAV6/mavros/local_position/velocity"/>
+
+
+
+
+
+</node>
+</launch>

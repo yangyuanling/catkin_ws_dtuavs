@@ -1,0 +1,19 @@
+<launch>
+<node name="rc_controller" pkg="rc_control" type="rc_control" output="screen">
+      <param name="start_offboard_pub_topic" value="/uav1/mavros/rc/in"/>
+      <param name="target_object_position_pub_topic" value = "/ref_uav/pose"/>
+      <param name="start_offboard_ch" value="5"/>
+      <param name="land_ch" value="6"/>
+</node>
+<node name="px4_velocity_control_wrapper" pkg="px4_simulation_wrapper" type="px4_velocity_control_wrapper" output="screen">
+      <param name="px4_ref_vel_msg_pub_topic" value="/mavros/setpoint_velocity/cmd_vel_unstamped"/>        <!--The Target Velocity Message to PX4-->
+      <param name="tgt_vel_msg_sub_topic" value="/other_controller/target_velocity"/>                      <!--The Target Velocity from Other Controller-->
+      <param name="px4_state_msg_sub_topic" value="/mavros/state"/>                                        <!--The State of PX4-->
+      <param name="px4_rc_msg_sub_topic" value="/mavros/rc/in"/>                                           <!--The RC Information from PX4-->
+      <param name="px4_arming_client_topic" value="/mavros/cmd/arming"/>                                   <!--The Arm to PX4-->
+      <param name="px4_set_mode_client_topic" value="/mavros/set_mode"/>                                   <!--The mode setting to PX4-->
+      <param name="run_frequen_hz" value="20.0"/>                                                          <!--The Frequen of Target Velocity Message To PX4-->
+      <param name="rc_start_ch" value="5"/>                                                                <!--The RC Channel of Start Vehicle-->
+      <param name="rc_land_ch" value="6"/>                                                                 <!--The RC Channel of Land Vehicle-->
+</node>
+</launch>
